@@ -1,24 +1,45 @@
 import React, { useState } from 'react'
 import validator from 'validator'
+import axios from 'axios';
 
 function Input() {
-
     const [emailError, setEmailError] = useState('')
     const [isValid, setValid] = useState(false);
+    const [email, setEmail] = useState('')
     const validateEmail = (e) => {
         var email = e.target.value;
-
-        if (validator.isEmail(email)) {
+        setEmail(email);
+        if(validator.isEmail(email)){ 
             setEmailError('Email is valid')
             setValid(true);
-        } else {
+        }else{
             setEmailError('Enter valid Email!')
             setValid(false);
+
         }
     }
+    const validateGlobal =  (e) => {
+        e.preventDefault();
+        axios.get(`https://api.trumail.io/v2/lookups/json?email=${email}`).then(data=>{
+            console.log(data);
+            if(data.hostExist){
+                setEmailError('Email is valid')
+                setValid(true);
+            }else{
+                setEmailError('Enter valid Email!')
+                setValid(false);
+
+            }
+    }).catch(err=>{
+        console.log(err.message)
+    })
+    }
+   
+
     return (
         <div>
-            <input type='text' name="useremail" onChange={(e) => validateEmail(e)}></input>
+            <input type='text' name="useremail" onChange={(e) => validateEmail(e)} value={email}></input>
+            <button onClick={(e) => validateGlobal(e)}>Validate Email</button>
             <p style={{ color: isValid ? 'green' : 'red' }}>{emailError}</p>
         </div>
     )
@@ -26,3 +47,7 @@ function Input() {
 }
 
 export default Input
+
+
+
+//
