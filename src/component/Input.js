@@ -3,9 +3,9 @@ import validator from 'validator'
 import axios from 'axios';
 
 function Input() {
-    const [emailError, setEmailError] = useState('')
+    const [emailError, setEmailError] = useState('');
     const [isValid, setValid] = useState(false);
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('');
     const validateEmail = (e) => {
         var email = e.target.value;
         setEmail(email);
@@ -39,7 +39,7 @@ function Input() {
     return (
         <div>
             <input type='text' name="useremail" onChange={(e) => validateEmail(e)} value={email}></input>
-            <button onClick={(e) => validateGlobal(e)}>Validate Email</button>
+            <button onClick={(e) => validateGlobal(e)}>Validate Email through TrueAPI</button>
             <p style={{ color: isValid ? 'green' : 'red' }}>{emailError}</p>
         </div>
     )
