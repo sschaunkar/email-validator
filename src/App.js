@@ -1,15 +1,16 @@
 // import logo from './logo.svg';
 import './App.css';
-import Input from './component/Input';
-import Login from './component/Login';
+import SignInOutContainer from './component/container/SignInOutContainer';
+// import Input from './component/Input';
+
 
 function App() {
   return (
     <div>
-    <div className="App">
+    {/* <div className="App">
       <Input />
-      </div>
-      <Login />
+      </div> */}
+      <SignInOutContainer />
     </div>
   );
 }
