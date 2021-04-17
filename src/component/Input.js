@@ -9,38 +9,38 @@ function Input() {
     const validateEmail = (e) => {
         var email = e.target.value;
         setEmail(email);
-        if(validator.isEmail(email)){ 
+        if (validator.isEmail(email)) {
             setEmailError('Email is valid')
             setValid(true);
-        }else{
+        } else {
             setEmailError('Enter valid Email!')
             setValid(false);
 
         }
     }
-    const validateGlobal =  (e) => {
+    const validateGlobal = (e) => {
         e.preventDefault();
-        axios.get(`https://api.trumail.io/v2/lookups/json?email=${email}`).then(data=>{
+        axios.get(`https://api.trumail.io/v2/lookups/json?email=${email}`).then(data => {
             console.log(data);
-            if(data.hostExist){
+            if (data.hostExist) {
                 setEmailError('Email is valid')
                 setValid(true);
-            }else{
+            } else {
                 setEmailError('Enter valid Email!')
                 setValid(false);
 
             }
-    }).catch(err=>{
-        console.log(err.message)
-    })
+        }).catch(err => {
+            console.log(err.message)
+        })
     }
-   
+
 
     return (
         <div>
-            <input type='text' name="useremail" onChange={(e) => validateEmail(e)} value={email}></input>
-            <button onClick={(e) => validateGlobal(e)}>Validate Email through TrueAPI</button>
+            <input type='text' name="useremail" onChange={(e) => validateEmail(e)} value={email} />
             <p style={{ color: isValid ? 'green' : 'red' }}>{emailError}</p>
+            <button onClick={(e) => validateGlobal(e)}>Validate Email through TrueAPI</button>
         </div>
     )
 
